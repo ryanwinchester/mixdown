@@ -1,0 +1,28 @@
+<h2>Show post</h2>
+
+<ul>
+
+  <li>
+    <strong>Title:</strong>
+    <%= @post.title %>
+  </li>
+
+  <li>
+    <strong>Content:</strong>
+    <%= @post.content %>
+  </li>
+
+  <li>
+    <strong>Is published:</strong>
+    <%= @post.is_published %>
+  </li>
+
+  <li>
+    <strong>User:</strong>
+    <%= @post.user_id %>
+  </li>
+
+</ul>
+
+<%= link "Edit", to: admin_post_path(@conn, :edit, @post) %>
+<%= link "Back", to: admin_post_path(@conn, :index) %>

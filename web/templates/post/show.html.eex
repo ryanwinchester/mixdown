@@ -1,0 +1,36 @@
+<!-- Page Header -->
+<header class="intro-header" style="background-image:url(<%= static_path(@conn, "/images/post-bg.jpg") %>)">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1">
+        <div class="post-heading">
+          <h1><%= @post.title %></h1>
+          <h2 class="subheading"><%= @post.subtitle %></h2>
+          <span class="meta">
+            Posted by <a href="#"><%= @post.user.name %></a>
+            <%= if @post.published_at  do %>
+            on <%= full_date(@post.published_at) %>
+            <% end %>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Post Content -->
+<article>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1">
+        <%= md_to_html @post.content %>
+      </div>
+    </div>
+  </div>
+</article>
+
+<hr>
+
+<%= if @user && @post.user_id === @user.id do %>
+  <%= link "Edit", to: admin_post_path(@conn, :edit, @post) %>
+<% end %>

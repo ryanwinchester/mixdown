@@ -1,0 +1,29 @@
+
+<%= if Enum.count(@posts) > 0 do %>
+
+  <%= for post <- @posts do %>
+  <div class="post-preview">
+    <a href="/posts/<%= post.slug %>">
+      <h2 class="post-title"><%= post.title %></h2>
+      <h3 class="post-subtitle"><%= post.subtitle %></h3>
+    </a>
+    <p class="post-meta">
+      Posted by <a href="#"><%= post.user.name %></a>
+      <%= if post.published_at do %>
+        on <%= full_date(post.published_at) %>
+      <% end %>
+    </p>
+  </div>
+  <hr>
+  <% end %>
+
+  <!-- Pager -->
+  <div class="clearfix">
+    <a class="btn btn-secondary float-right" href="#">Older Posts &rarr;</a>
+  </div>
+
+<% else %>
+
+  <h4>No posts</h4>
+
+<% end %>

@@ -1,0 +1,15 @@
+<h2>Listing posts</h2>
+
+<%= if Enum.count(@posts) > 0 do %>
+  <ul>
+    <%= for post <- @posts do %>
+      <li><a href="/posts/<%= post.slug %>"><%= post.title %></a></li>
+    <% end %>
+  </ul>
+<% else %>
+  <h4>No posts</h4>
+<% end %>
+
+<%= if @user do %>
+  <%= link "New post", to: admin_post_path(@conn, :new) %>
+<% end %>
