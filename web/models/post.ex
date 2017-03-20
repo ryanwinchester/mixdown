@@ -13,6 +13,7 @@ defmodule Mixdown.Post do
     field :published_at, :naive_datetime
 
     belongs_to :user, Mixdown.User
+    many_to_many :tags, Mixdown.Tag, join_through: "posts_tags"
 
     timestamps()
   end

@@ -19,6 +19,16 @@ user = Repo.insert!(%Mixdown.User{
   password_hash: Comeonin.Bcrypt.hashpwsalt("password123"),
 })
 
+tag1 = Repo.insert!(%Mixdown.Tag{
+  name: "randomness",
+  slug: "randomness",
+})
+
+tag2 = Repo.insert!(%Mixdown.Tag{
+  name: "cool stuff",
+  slug: "cool-stuff",
+})
+
 Repo.insert!(%Mixdown.Post{
   title: "Test Post",
   subtitle: "Something Great Here",

@@ -1,0 +1,11 @@
+<h2>Tags</h2>
+
+<%= if @tags do %>
+<ul>
+  <%= for tag <- @tags do %>
+    <li><a href="/topics/<%= tag.slug %>"><%= tag.name %></a></li>
+  <% end %>
+</ul>
+<% else %>
+  <h4>No tags</h4>
+<% end %>

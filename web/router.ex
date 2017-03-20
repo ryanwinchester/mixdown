@@ -29,6 +29,7 @@ defmodule Mixdown.Router do
 
     get "/", PageController, :index
     resources "/posts", PostController, only: [:index, :show]
+    resources "/tags", TagController, only: [:index, :show]
     resources "/users", UserController, only: [:index, :show]
   end
 
@@ -36,6 +37,7 @@ defmodule Mixdown.Router do
     pipe_through [:browser, :browser_session] # TODO: add :browser_auth
 
     resources "/posts", PostController, as: :admin_post, except: [:show]
+    resources "/tags", TagController, as: :admin_tag, except: [:show]
     resources "/users", UserController, as: :admin_user, except: [:show]
   end
 
