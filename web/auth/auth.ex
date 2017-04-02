@@ -26,20 +26,11 @@ defmodule Mixdown.Auth do
   Log in the user.
   """
   def login(conn, user) do
-    conn
-    |> sign_in(user)
+    sign_in(conn, user)
   end
 
   def logout(conn), do: sign_out(conn)
   def user(conn), do: current_resource(conn)
-
-  @doc """
-  Register a new user.
-  """
-  def register(_conn, params) do
-    changeset = User.registration_changeset(%User{}, params)
-    Repo.insert!(changeset)
-  end
 
   @doc """
   Add the Authorization token to the header.

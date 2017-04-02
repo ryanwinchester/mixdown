@@ -16,8 +16,8 @@ defmodule Mixdown.Router do
   end
 
   pipeline :browser_auth do
-    plug Guardian.Plug.EnsureAuthenticated,
-      handler: Provisioner.SessionController
+    plug Guardian.Plug.EnsureAuthenticated, handler: Mixdown.SessionController
+    plug Mixdown.Plugs.LoadUser
   end
 
   pipeline :api do
@@ -33,12 +33,23 @@ defmodule Mixdown.Router do
     resources "/users", UserController, only: [:index, :show]
   end
 
-  scope "/admin", Mixdown.Admin do
-    pipe_through [:browser, :browser_session] # TODO: add :browser_auth
+  scope "/auth", Mixdown do
+    pipe_through [:browser, :browser_session]
 
-    resources "/posts", PostController, as: :admin_post, except: [:show]
-    resources "/tags", TagController, as: :admin_tag, except: [:show]
-    resources "/users", UserController, as: :admin_user, except: [:show]
+    get "/login", SessionController, :new, as: :session
+    post "/login", SessionController, :create, as: :session
+    delete "/", SessionController, :delete, as: :session
+    get "/logout", SessionController, :delete, as: :logout
+  end
+
+  scope "/admin", Mixdown.Admin, as: :admin do
+    pipe_through [:browser, :browser_session, :browser_auth]
+
+    get "/", DashboardController, :index
+
+    resources "/posts", PostController, except: [:show]
+    resources "/tags", TagController, except: [:show]
+    resources "/users", UserController, except: [:show]
   end
 
   # Other scopes may use custom stacks.

@@ -7,8 +7,7 @@ defmodule Mixdown.Plugs.LoadUser do
   def init(default), do: default
 
   def call(conn, _options) do
-    user = Auth.user(conn)
-    assign(conn, :user, user)
+    assign(conn, :user, Auth.user(conn))
   end
 
 end

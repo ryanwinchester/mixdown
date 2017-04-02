@@ -20,7 +20,7 @@ defmodule Mixdown.Mixfile do
     [mod: {Mixdown, []},
      applications: [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext,
                     :phoenix_ecto, :postgrex, :timex, :comeonin, :ueberauth, :ueberauth_identity,
-                    :guardian, :guardian_db]]
+                    :guardian, :guardian_db, :ex_aws, :hackney, :poison]]
   end
 
   # Specifies which paths to compile per environment.
@@ -45,7 +45,12 @@ defmodule Mixdown.Mixfile do
      {:ueberauth, "~> 0.4"},
      {:ueberauth_identity, "~> 0.2"},
      {:guardian, "~> 0.14.0"},
-     {:guardian_db, "~>0.8"}]
+     {:guardian_db, "~>0.8"},
+     {:arc, "~> 0.7.0"},
+     {:ex_aws, "~> 1.1"},
+     {:hackney, "~> 1.6"},
+    #  {:poison, "~> 3.1"},
+     {:sweet_xml, "~> 0.6"}]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.

@@ -1,4 +1,4 @@
-<%= form_for @changeset, @action, fn f -> %>
+<%= form_for @changeset, @action, [multipart: true], fn f -> %>
   <%= if @changeset.action do %>
     <div class="alert alert-danger">
       <p>Oops, something went wrong! Please check the errors below.</p>
@@ -24,6 +24,32 @@
         Published
       </label>
       <%= error_tag f, :is_published %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <%= label f, :cover_photo_upload, class: "control-label" %>
+        <%= file_input f, :cover_photo_upload, class: "form-control" %>
+        <br>
+        <%= error_tag f, :cover_photo_upload %>
+        <div class="preview">
+          <img src="<%= cover_photo_url @changeset %>" style="max-width:100%">
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="form-group">
+        <%= label f, :thumbnail_upload, class: "control-label" %>
+        <%= file_input f, :thumbnail_upload, class: "form-control" %>
+        <br>
+        <%= error_tag f, :thumbnail_upload %>
+        <div class="preview">
+          <img src="<%= thumbnail_url @changeset %>" style="max-width:100%">
+        </div>
+      </div>
     </div>
   </div>
 

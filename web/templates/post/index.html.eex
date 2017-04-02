@@ -1,4 +1,4 @@
-<h2>Listing posts</h2>
+<h2>Posts</h2>
 
 <%= if Enum.count(@posts) > 0 do %>
   <ul>

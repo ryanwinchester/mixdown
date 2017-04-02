@@ -1,0 +1,15 @@
+<%= if has_alert @conn do %>
+  <section class="alerts">
+    <div class="container">
+    <%= if has_info @conn do %>
+      <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
+    <% end %>
+    <%= if has_success @conn do %>
+      <p class="alert alert-success" role="alert"><%= get_flash(@conn, :success) %></p>
+    <% end %>
+    <%= if has_error @conn do %>
+      <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+    <% end %>
+    </div>
+  </section>
+<% end %>

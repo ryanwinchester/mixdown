@@ -33,6 +33,7 @@ defmodule Mixdown.Admin.PostController do
   end
 
   def update(conn, %{"id" => id, "post" => post_params}) do
+    IO.inspect post_params
     post = Repo.get!(Post, id)
     changeset = Post.changeset(post, post_params)
 

@@ -1,0 +1,23 @@
+<div class="container d-table">
+  <div class="d-100vh-va-middle">
+    <div class="row">
+      <div class="col-md-8 offset-md-2">
+        <div class="card-group">
+          <div class="card p-2">
+            <div class="card-block">
+              <%= render Mixdown.SharedView, "alerts.html", assigns %>
+              <p>Redirecting to dashboard...<p>
+              <p><a href="<%= admin_dashboard_path(@conn, :index) %>">Click here</a> if you are not automatically redirected.</p>
+              <h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  localStorage.setItem('token', '<%= get_token @conn %>')
+  window.location.href = "<%= admin_dashboard_path(@conn, :index) %>"
+</script>

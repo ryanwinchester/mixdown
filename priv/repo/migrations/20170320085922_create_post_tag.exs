@@ -3,7 +3,7 @@ defmodule Mixdown.Repo.Migrations.CreatePostTag do
 
   def change do
     create table(:posts_tags, primary_key: false) do
-      add :post_id, references(:posts, on_delete: :delete_all)
+      add :post_id, references(:posts, on_delete: :delete_all, type: :uuid)
       add :tag_id, references(:tags, on_delete: :delete_all)
     end
 
