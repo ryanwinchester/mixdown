@@ -6,7 +6,10 @@ defmodule Mix.Tasks.Mixdown.NewUser do
 
   @shortdoc "Create a new mixdown user."
 
+  @fields ~w(email username name password)a
+
   def run(_args) do
+     Application.ensure_all_started(:mixdown)
     create_user %{
       email: get_input("email: "),
       username: get_input("username: "),
