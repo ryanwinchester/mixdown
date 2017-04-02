@@ -29,7 +29,14 @@ defmodule Mixdown.Auth do
     sign_in(conn, user)
   end
 
+  @doc """
+  Logout the current user.
+  """
   def logout(conn), do: sign_out(conn)
+
+  @doc """
+  Get the current logged in user.
+  """
   def user(conn), do: current_resource(conn)
 
   @doc """

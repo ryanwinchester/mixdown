@@ -36,7 +36,7 @@ defmodule Mixdown.SessionController do
     conn
     |> Auth.logout
     |> put_flash(:info, "You have been logged out.")
-    |> redirect(to: page_path(conn, :dashboard))
+    |> redirect(to: admin_dashboard_path(conn, :index))
   end
 
   @doc """
