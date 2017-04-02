@@ -1,12 +1,10 @@
-defmodule Mix.Tasks.Mixdown.NewUser do
+defmodule Mix.Tasks.Mixdown.Adduser do
   use Mix.Task
 
   alias Mixdown.Repo
   alias Mixdown.User
 
   @shortdoc "Create a new mixdown user."
-
-  @fields ~w(email username name password)a
 
   def run(_args) do
      Application.ensure_all_started(:mixdown)
