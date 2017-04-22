@@ -2,9 +2,14 @@
 
 <h3>Menu </h4>
 <ul>
-    <li>
-      <a href="<%= admin_post_path(@conn, :index) %>">
+  <li>
+    <a href="<%= admin_post_path(@conn, :index) %>">
       Posts
-      </a>
-    </li>
+    </a>
+  </li>
+  <li>
+    <a href="<%= admin_tag_path(@conn, :index) %>">
+      Tags
+    </a>
+  </li>
 </ul>

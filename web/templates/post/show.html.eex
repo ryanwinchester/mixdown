@@ -9,7 +9,12 @@
           <span class="meta">
             Posted by <a href="#"><%= @post.user.name %></a>
             <%= if @post.published_at  do %>
-            on <%= full_date(@post.published_at) %>
+              on <%= full_date(@post.published_at) %>
+            <% end %>
+          </span>
+          <span class="tags">
+            <%= for tag <- @post.tags do %>
+              <a class="badge badge-default" href="/tags/<%= tag.slug %>"><%= tag.name %></a>
             <% end %>
           </span>
         </div>

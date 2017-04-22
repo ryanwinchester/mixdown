@@ -17,6 +17,6 @@ defmodule Mixdown.Tag do
   def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, [:name, :slug, :description])
-    |> validate_required([:name, :slug, :description])
+    |> validate_required([:name, :slug])
   end
 end

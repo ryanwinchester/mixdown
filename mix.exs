@@ -50,7 +50,8 @@ defmodule Mixdown.Mixfile do
      {:ex_aws, "~> 1.1"},
      {:hackney, "~> 1.6"},
     #  {:poison, "~> 3.1"},
-     {:sweet_xml, "~> 0.6"}]
+     {:sweet_xml, "~> 0.6"},
+     {:slugger, "~> 0.1.0"},]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.

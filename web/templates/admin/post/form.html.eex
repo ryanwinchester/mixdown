@@ -12,6 +12,12 @@
   </div>
 
   <div class="form-group">
+    <%= label f, :tags, class: "control-label" %>
+    <%= multiple_select f, :tags, all_tags(), selected: selected_tags(@changeset),
+      class: "select-tags form-control", tabindex: "-1" %>
+  </div>
+
+  <div class="form-group">
     <%= label f, :content, class: "control-label" %>
     <%= textarea f, :content, class: "form-control", style: "min-height:400px;" %>
     <%= error_tag f, :content %>

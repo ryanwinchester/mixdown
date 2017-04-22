@@ -7,6 +7,7 @@
         <th>Title</th>
         <th>Published</th>
         <th>Author</th>
+        <th>Tags</th>
 
         <th></th>
       </tr>
@@ -17,6 +18,11 @@
         <td><%= post.title %></td>
         <td><%= post.is_published %></td>
         <td><%= post.user.name %></td>
+        <td>
+          <%= for tag <- post.tags do %>
+            <span class="badge"><%= tag.name %></span>
+          <% end %>
+        </td>
 
         <td class="text-right">
           <%= link "Edit", to: admin_post_path(@conn, :edit, post), class: "btn btn-default btn-xs" %>

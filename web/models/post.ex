@@ -1,7 +1,11 @@
 defmodule Mixdown.Post do
   use Mixdown.Web, :model
 
+  import Slugger, only: [slugify: 1]
+
   alias Mixdown.CoverPhoto
+  alias Mixdown.Repo
+  alias Mixdown.Tag
   alias Mixdown.Thumbnail
 
   @required_fields ~w(title slug published_at)a
@@ -24,7 +28,7 @@ defmodule Mixdown.Post do
     field :published_at, :naive_datetime
 
     belongs_to :user, Mixdown.User
-    many_to_many :tags, Mixdown.Tag, join_through: "posts_tags"
+    many_to_many :tags, Mixdown.Tag, join_through: "posts_tags", on_replace: :delete
 
     timestamps()
   end
@@ -35,10 +39,16 @@ defmodule Mixdown.Post do
   def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, @required_fields ++ @optional_fields)
+    |> cast_slug
     |> cast_published
     |> cast_cover_photo
     |> cast_thumbnail
     |> validate_required(@required_fields)
+  end
+
+  defp cast_slug(changeset) do
+    title = get_field(changeset, :title)
+    put_change(changeset, :slug, slugify(title))
   end
 
   defp cast_published(changeset) do

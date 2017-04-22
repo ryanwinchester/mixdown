@@ -1,20 +1,30 @@
 defmodule Mixdown.Admin.PostController do
   use Mixdown.Web, :controller
 
+  alias Ecto.Changeset
   alias Mixdown.Post
+  alias Mixdown.Tag
 
   def index(conn, _params) do
-    posts = Repo.all(Post) |> Repo.preload(:user)
+    posts = Repo.all(Post) |> Repo.preload([:user, :tags])
     render(conn, "index.html", posts: posts)
   end
 
   def new(conn, _params) do
-    changeset = Post.changeset(%Post{})
+    changeset = Repo.preload(%Post{}, :tags) |> Post.changeset()
+
     render(conn, "new.html", changeset: changeset)
   end
 
   def create(conn, %{"post" => post_params}) do
-    changeset = Post.changeset(%Post{}, post_params)
+    tag_ids = Map.get(post_params, "tags")
+    tags = Repo.all(from t in Tag, where: t.id in ^tag_ids)
+
+    changeset =
+      %Post{}
+      |> Repo.preload(:tags)
+      |> Post.changeset(post_params)
+      |> Changeset.put_assoc(:tags, tags)
 
     case Repo.insert(changeset) do
       {:ok, _post} ->
@@ -27,15 +37,21 @@ defmodule Mixdown.Admin.PostController do
   end
 
   def edit(conn, %{"id" => id}) do
-    post = Repo.get!(Post, id)
+    post = Repo.get!(Post, id) |> Repo.preload(:tags)
     changeset = Post.changeset(post)
     render(conn, "edit.html", post: post, changeset: changeset)
   end
 
   def update(conn, %{"id" => id, "post" => post_params}) do
-    IO.inspect post_params
-    post = Repo.get!(Post, id)
-    changeset = Post.changeset(post, post_params)
+    tag_ids = Map.get(post_params, "tags")
+    tags = Repo.all(from t in Tag, where: t.id in ^tag_ids)
+
+    changeset =
+      Post
+      |> Repo.get!(id)
+      |> Repo.preload(:tags)
+      |> Post.changeset(post_params)
+      |> Changeset.put_assoc(:tags, tags)
 
     case Repo.update(changeset) do
       {:ok, post} ->
@@ -43,7 +59,7 @@ defmodule Mixdown.Admin.PostController do
         |> put_flash(:info, "Post updated successfully.")
         |> redirect(to: admin_post_path(conn, :index))
       {:error, changeset} ->
-        render(conn, "edit.html", post: post, changeset: changeset)
+        render(conn, "edit.html", changeset: changeset)
     end
   end
 

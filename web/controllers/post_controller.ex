@@ -10,7 +10,11 @@ defmodule Mixdown.PostController do
   end
 
   def show(conn, %{"id" => slug}) do
-    post = Repo.get_by(Post, slug: slug, is_published: true) |> Repo.preload(:user)
+    post =
+      Post
+      |> Repo.get_by(slug: slug, is_published: true)
+      |> Repo.preload([:user, :tags])
+
     render(conn, "show.html", post: post)
   end
 
