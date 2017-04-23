@@ -415,3 +415,8 @@ img::-moz-selection {
 body {
     -webkit-tap-highlight-color: $theme-primary;
 }
+
+a.tag-badge {
+  color: #fff !important;
+  text-decoration: none !important;
+}

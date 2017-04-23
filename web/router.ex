@@ -28,6 +28,8 @@ defmodule Mixdown.Router do
     pipe_through [:browser, :browser_session]
 
     get "/", PageController, :index
+    get "/about", PageController, :about
+    get "/contact", PageController, :contact
     resources "/posts", PostController, only: [:index, :show]
     resources "/tags", TagController, only: [:index, :show]
     resources "/users", UserController, only: [:index, :show]

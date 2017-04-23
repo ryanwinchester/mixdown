@@ -16,7 +16,54 @@
 <div class="container">
   <div class="row">
     <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1">
-      <%= render Mixdown.SharedView, "post-list.html", posts: @posts %>
+      <%= if Enum.count(@posts) > 0 do %>
+
+        <%= for post <- @posts do %>
+          <div class="post-preview">
+            <a href="/posts/<%= post.slug %>">
+              <h2 class="post-title"><%= post.title %></h2>
+              <h3 class="post-subtitle"><%= post.subtitle %></h3>
+            </a>
+            <p class="post-meta">
+              Posted by <a href="#"><%= post.user.name %></a>
+              <%= if post.published_at do %>
+                on <%= full_date(post.published_at) %>
+              <% end %>
+
+              <%= if Enum.count(post.tags) > 0 do %>
+                <br>
+                <%= for tag <- post.tags do %>
+                  <a class="badge badge-default tag-badge" href="/tags/<%= tag.slug %>">
+                    <%= tag.name %>
+                  </a>
+                <% end %>
+              <% end %>
+
+            </p>
+          </div>
+          <hr>
+        <% end %>
+
+      <% else %>
+        <h4>No posts</h4>
+      <% end %>
+
+      <!-- Pager -->
+      <div class="clearfix">
+        <%= if @page_number > 1 do %>
+          <a class="btn btn-secondary float-left" href="?page=<%= @page_number - 1 %>">
+            &larr; Newer Posts
+          </a>
+        <% end %>
+
+        <%= if @page_number < @total_pages do %>
+          <a class="btn btn-secondary float-right" href="?page=<%= @page_number + 1 %>">
+            Older Posts &rarr;
+          </a>
+        <% end %>
+      </div>
+
+
     </div>
   </div>
 </div>
