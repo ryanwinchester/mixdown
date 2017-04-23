@@ -1,12 +1,12 @@
-defmodule Mixdown.Tag do
+defmodule Mixdown.Category do
   use Mixdown.Web, :model
 
-  schema "tags" do
+  schema "categories" do
     field :name, :string
     field :slug, :string
     field :description, :string
 
-    many_to_many :posts, Mixdown.Post, join_through: "posts_tags"
+    has_many :posts, Mixdown.Post
 
     timestamps()
   end
@@ -17,7 +17,7 @@ defmodule Mixdown.Tag do
   def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, [:name, :slug, :description])
-    |> validate_required([:name, :slug])
+    |> validate_required([:name, :slug, :description])
     |> unique_constraint(:slug)
   end
 end

@@ -1,7 +1,5 @@
-
-<%= if Enum.count(@posts) > 0 do %>
-
-  <%= for post <- @posts do %>
+<%= if Enum.count(@page.entries) > 0 do %>
+  <%= for post <- @page.entries do %>
     <div class="post-preview">
       <a href="/posts/<%= post.slug %>">
         <h2 class="post-title"><%= post.title %></h2>
@@ -12,18 +10,42 @@
         <%= if post.published_at do %>
           on <%= full_date(post.published_at) %>
         <% end %>
+
+        <br>
+        <%= if post.category do %>
+          <a class="badge badge-primary badge-link" href="/categories/<%= post.category.slug %>">
+            <%= post.category.name %>
+          </a>
+        <% else %>
+          <span class="badge badge-primary">Uncategorized</span>
+        <% end %>
+
+        <%= for tag <- post.tags do %>
+          <a class="badge badge-default badge-link" href="/tags/<%= tag.slug %>">
+            <%= tag.name %>
+          </a>
+        <% end %>
+
       </p>
     </div>
     <hr>
   <% end %>
 
-  <!-- Pager -->
-  <div class="clearfix">
-    <a class="btn btn-secondary float-right" href="#">Older Posts &rarr;</a>
-  </div>
-
 <% else %>
-
   <h4>No posts</h4>
-
 <% end %>
+
+<!-- Pager -->
+<div class="clearfix">
+  <%= if @page.page_number > 1 do %>
+    <a class="btn btn-secondary float-left" href="?page=<%= @page.page_number - 1 %>">
+      &larr; Newer Posts
+    </a>
+  <% end %>
+
+  <%= if @page.page_number < @page.total_pages do %>
+    <a class="btn btn-secondary float-right" href="?page=<%= @page.page_number + 1 %>">
+      Older Posts &rarr;
+    </a>
+  <% end %>
+</div>

@@ -13,6 +13,14 @@
             <% end %>
           </span>
           <span class="tags">
+            <%= if @post.category do %>
+              <a class="badge badge-primary badge-link" href="/categories/<%= @post.category.slug %>">
+                <%= @post.category.name %>
+              </a>
+            <% else %>
+              <span class="badge badge-primary">Uncategorized</span>
+            <% end %>
+
             <%= for tag <- @post.tags do %>
               <a class="badge badge-default" href="/tags/<%= tag.slug %>"><%= tag.name %></a>
             <% end %>

@@ -21,29 +21,66 @@ Repo.transaction(fn ->
     password_hash: Comeonin.Bcrypt.hashpwsalt("password123"),
   })
 
+  cat_gaming = Repo.insert!(%Mixdown.Category{
+    name: "Gaming",
+    slug: "gaming",
+    description: "Video games and stuff",
+  })
+
+  cat_software = Repo.insert!(%Mixdown.Category{
+    name: "Software",
+    slug: "software",
+    description: "Software and stuff",
+  })
+
   tag1 = Repo.insert!(%Mixdown.Tag{
     name: "randomness",
     slug: "randomness",
+    description: "Randomg things",
   })
 
   tag2 = Repo.insert!(%Mixdown.Tag{
     name: "cool stuff",
     slug: "cool-stuff",
+    description: "Stuff that is super cool",
   })
 
   post_content = """
   This is some markdown content
 
   - Some
-  - Stuff
+  - List
   - Here
+
+  #### Code blocks
+
+  Here is some elixir
 
   ```elixir
   defmodule Foo do
-    def hello_world, do: "hello world!"
+    def bar, do: "baz"
   end
   ```
 
+  and how about some php?
+
+  ```php
+  <?php
+
+  class Foo {
+      function bar()
+      {
+          return "baz";
+      }
+  }
+  ```
+
+  1. Okay, maybe an ordered list
+  2. Of stuff
+
+  And how about some `inline code` element.
+
+  ##### The End.
   """
 
 
@@ -64,6 +101,7 @@ Repo.transaction(fn ->
       subtitle: "Something Great Here",
       slug: "test-post-#{i}",
       user_id: user.id,
+      category_id: Enum.random([cat_gaming.id, cat_software.id]),
       is_published: true,
       published_at: Timex.parse!("2016-12-31", "{YYYY}-{0M}-{0D}") |> Timex.shift(days: i),
       content: post_content})

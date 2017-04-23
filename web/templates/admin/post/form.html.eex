@@ -12,6 +12,11 @@
   </div>
 
   <div class="form-group">
+    <%= label f, :category_id, class: "control-label" %>
+    <%= select f, :category_id, all_categories(), class: "select-category form-control" %>
+  </div>
+
+  <div class="form-group">
     <%= label f, :tags, class: "control-label" %>
     <%= multiple_select f, :tags, all_tags(), selected: selected_tags(@changeset),
       class: "select-tags form-control", tabindex: "-1" %>

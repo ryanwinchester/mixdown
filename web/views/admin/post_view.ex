@@ -4,6 +4,7 @@ defmodule Mixdown.Admin.PostView do
   import Ecto.Query, only: [from: 2]
 
   alias Ecto.Changeset
+  alias Mixdown.Category
   alias Mixdown.CoverPhoto
   alias Mixdown.Post
   alias Mixdown.Repo
@@ -18,8 +19,12 @@ defmodule Mixdown.Admin.PostView do
     Thumbnail.url({Changeset.get_field(changeset, :thumbnail), Changeset.apply_changes(changeset)})
   end
 
+  def all_categories() do
+    Repo.all(from c in Category, select: {c.name, c.id}, order_by: c.name)
+  end
+
   def all_tags() do
-    Repo.all(from t in Tag, select: {t.name, t.id})
+    Repo.all(from t in Tag, select: {t.name, t.id}, order_by: t.name)
   end
 
   def selected_tags(changeset) do

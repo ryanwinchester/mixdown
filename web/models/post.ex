@@ -3,14 +3,15 @@ defmodule Mixdown.Post do
 
   import Slugger, only: [slugify: 1]
 
+  alias Mixdown.Category
   alias Mixdown.CoverPhoto
   alias Mixdown.Repo
   alias Mixdown.Tag
   alias Mixdown.Thumbnail
 
   @required_fields ~w(title slug published_at)a
-  @optional_fields ~w(subtitle content is_published user_id cover_photo cover_photo_upload
-    thumbnail thumbnail_upload)a
+  @optional_fields ~w(subtitle content is_published user_id category_id cover_photo
+    cover_photo_upload thumbnail thumbnail_upload)a
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @derive {Phoenix.Param, key: :id}
@@ -28,6 +29,7 @@ defmodule Mixdown.Post do
     field :published_at, :naive_datetime
 
     belongs_to :user, Mixdown.User
+    belongs_to :category, Mixdown.Category
     many_to_many :tags, Mixdown.Tag, join_through: "posts_tags", on_replace: :delete
 
     timestamps()
@@ -47,9 +49,33 @@ defmodule Mixdown.Post do
     |> unique_constraint(:slug)
   end
 
+  def published(post) do
+    from p in post,
+      where: p.is_published == true,
+      order_by: [desc: :published_at],
+      preload: [:user, :category, :tags]
+  end
+
+  def by_tag(post, %{id: tag_id}) do
+    from p in post,
+      inner_join: p_t in "posts_tags", on: p_t.post_id == p.id,
+      inner_join: t in Tag, on: t.id == p_t.tag_id,
+      where: t.id == ^tag_id
+  end
+
+  def by_category(post, %{id: category_id}) do
+    from p in post,
+      where: p.category_id == ^category_id
+  end
+
   defp cast_slug(changeset) do
-    title = get_field(changeset, :title)
-    put_change(changeset, :slug, slugify(title))
+    case get_field(changeset, :slug) do
+      nil ->
+        title = get_field(changeset, :title)
+        put_change(changeset, :slug, slugify(title))
+      _ ->
+        changeset
+    end
   end
 
   defp cast_published(changeset) do

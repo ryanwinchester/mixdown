@@ -13,7 +13,7 @@ defmodule Mixdown.PostController do
     post =
       Post
       |> Repo.get_by(slug: slug, is_published: true)
-      |> Repo.preload([:user, :tags])
+      |> Repo.preload([:user, :category, :tags])
 
     render(conn, "show.html", post: post)
   end

@@ -8,6 +8,11 @@
     </a>
   </li>
   <li>
+    <a href="<%= admin_category_path(@conn, :index) %>">
+      Categories
+    </a>
+  </li>
+  <li>
     <a href="<%= admin_tag_path(@conn, :index) %>">
       Tags
     </a>

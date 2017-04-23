@@ -32,6 +32,7 @@ defmodule Mixdown.Router do
     get "/contact", PageController, :contact
     resources "/posts", PostController, only: [:index, :show]
     resources "/tags", TagController, only: [:index, :show]
+    resources "/categories", CategoryController, only: [:index, :show]
     resources "/users", UserController, only: [:index, :show]
   end
 
@@ -51,6 +52,7 @@ defmodule Mixdown.Router do
 
     resources "/posts", PostController, except: [:show]
     resources "/tags", TagController, except: [:show]
+    resources "/categories", CategoryController, except: [:show]
     resources "/users", UserController, except: [:show]
   end
 

@@ -1,8 +1,8 @@
-defmodule Mixdown.Repo.Migrations.CreateTag do
+defmodule Mixdown.Repo.Migrations.CreateCategory do
   use Ecto.Migration
 
   def change do
-    create table(:tags) do
+    create table(:categories) do
       add :name, :string
       add :slug, :string
       add :description, :string
@@ -10,7 +10,7 @@ defmodule Mixdown.Repo.Migrations.CreateTag do
       timestamps()
     end
 
-    create unique_index(:tags, [:slug])
+    create unique_index(:categories, [:slug])
 
   end
 end
