@@ -18,7 +18,7 @@ defmodule Mixdown.Repo.Migrations.CreatePost do
       timestamps()
     end
 
-    create index(:posts, [:slug])
+    create unique_index(:posts, [:slug])
     create index(:posts, [:user_id])
 
   end

@@ -50,7 +50,7 @@ Repo.transaction(fn ->
   Repo.insert!(%Mixdown.Post{
     title: "Test Post",
     subtitle: "This is Super Awesome",
-    slug: "test-post-2",
+    slug: "test-post",
     user_id: user.id,
     is_published: true,
     published_at: Timex.parse!("2017-04-15", "{YYYY}-{0M}-{0D}"),

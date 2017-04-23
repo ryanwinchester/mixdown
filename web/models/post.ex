@@ -44,6 +44,7 @@ defmodule Mixdown.Post do
     |> cast_cover_photo
     |> cast_thumbnail
     |> validate_required(@required_fields)
+    |> unique_constraint(:slug)
   end
 
   defp cast_slug(changeset) do
