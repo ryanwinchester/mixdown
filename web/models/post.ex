@@ -49,6 +49,9 @@ defmodule Mixdown.Post do
     |> unique_constraint(:slug)
   end
 
+  @doc """
+  Limit posts to published posts.
+  """
   def published(post) do
     from p in post,
       where: p.is_published == true,
@@ -56,6 +59,9 @@ defmodule Mixdown.Post do
       preload: [:user, :category, :tags]
   end
 
+  @doc """
+  Limit posts to a certain tag.
+  """
   def by_tag(post, %{id: tag_id}) do
     from p in post,
       inner_join: p_t in "posts_tags", on: p_t.post_id == p.id,
@@ -63,11 +69,15 @@ defmodule Mixdown.Post do
       where: t.id == ^tag_id
   end
 
+  @doc """
+  Limit posts to a certain category.
+  """
   def by_category(post, %{id: category_id}) do
     from p in post,
       where: p.category_id == ^category_id
   end
 
+  # Add slug from title, if no slug exists.
   defp cast_slug(changeset) do
     case get_field(changeset, :slug) do
       nil ->
@@ -78,6 +88,8 @@ defmodule Mixdown.Post do
     end
   end
 
+  # If post is published and there is no published_at date,
+  # make it the current time.
   defp cast_published(changeset) do
     post = apply_changes(changeset)
     if post.is_published and post.published_at === nil do
