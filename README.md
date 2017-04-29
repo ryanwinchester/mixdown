@@ -21,3 +21,8 @@ Ready to run in production? Please [check our deployment guides](http://www.phoe
   * Docs: https://hexdocs.pm/phoenix
   * Mailing list: http://groups.google.com/group/phoenix-talk
   * Source: https://github.com/phoenixframework/phoenix
+
+## Credits
+
+- Default blog theme is [Clean Blog](https://github.com/BlackrockDigital/startbootstrap-clean-blog)
+- Default admin theme is [CoreUI](https://github.com/mrholek/CoreUI-Free-Bootstrap-Admin-Template)
