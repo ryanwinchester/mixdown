@@ -1,7 +1,7 @@
 defmodule Mixdown.Post do
   use Mixdown.Web, :model
 
-  import Slugger, only: [slugify: 1]
+  import Mixdown.Slugger, only: [slugify: 1]
 
   alias Mixdown.Category
   alias Mixdown.CoverPhoto

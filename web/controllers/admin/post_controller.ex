@@ -25,6 +25,7 @@ defmodule Mixdown.Admin.PostController do
       |> Repo.preload(:tags)
       |> Post.changeset(post_params)
       |> Changeset.put_assoc(:tags, tags)
+      |> Changeset.put_assoc(:user, conn.assigns[:user])
 
     case Repo.insert(changeset) do
       {:ok, _post} ->

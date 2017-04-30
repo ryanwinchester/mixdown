@@ -52,6 +52,7 @@ defmodule Mixdown.Web do
       import Mixdown.Router.Helpers
       import Mixdown.ErrorHelpers
       import Mixdown.Gettext
+      import Mixdown.LayoutHelpers
     end
   end
 

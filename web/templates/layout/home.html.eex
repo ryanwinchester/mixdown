@@ -5,10 +5,12 @@
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
+  <meta name="description" content="<%= yield(assigns, :author) %>">
+  <meta name="author" content="<%= yield(assigns, :author) %>">
 
-  <title>Mixdown</title>
+  <%= yield(assigns, :meta) %>
+
+  <title><%= yield(assigns, :title, "Mixdown") %></title>
 
   <!-- Bootstrap Core CSS -->
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
@@ -21,6 +23,8 @@
 
   <!-- Custom styles for this theme -->
   <link href="<%= static_path(@conn, "/css/home.css") %>" rel="stylesheet">
+
+  <%= yield(assigns, :styles) %>
 
   <!-- Temporary navbar container fix until Bootstrap 4 is patched -->
   <style>
@@ -65,6 +69,8 @@
 
   <!-- Theme JavaScript -->
   <script src="<%= static_path(@conn, "/js/home.js") %>"></script>
+
+  <%= yield(assigns, :scripts) %>
 
 </body>
 

@@ -1,6 +1,10 @@
 defmodule Mixdown.PostView do
   use Mixdown.Web, :view
 
+  def render("title", %{post: post}) do
+    post.title
+  end
+
   def md_to_html(markdown) do
     markdown
     |> Earmark.as_html!(%Earmark.Options{code_class_prefix: "lang- language-"})
