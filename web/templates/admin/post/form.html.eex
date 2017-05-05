@@ -23,8 +23,14 @@
   </div>
 
   <div class="form-group">
+    <%= label f, :description, class: "control-label" %>
+    <%= textarea f, :description, class: "form-control", style: "min-height:100px; width: 100%;" %>
+    <%= error_tag f, :description %>
+  </div>
+
+  <div class="form-group">
     <%= label f, :content, class: "control-label" %>
-    <%= textarea f, :content, class: "form-control", style: "min-height:400px;" %>
+    <%= textarea f, :content, class: "form-control", style: "min-height:400px; width: 100%;" %>
     <%= error_tag f, :content %>
   </div>
 
@@ -53,12 +59,12 @@
 
     <div class="col-md-6">
       <div class="form-group">
-        <%= label f, :thumbnail_upload, class: "control-label" %>
-        <%= file_input f, :thumbnail_upload, class: "form-control" %>
+        <%= label f, :photo_upload, class: "control-label" %>
+        <%= file_input f, :photo_upload, class: "form-control" %>
         <br>
-        <%= error_tag f, :thumbnail_upload %>
+        <%= error_tag f, :photo_upload %>
         <div class="preview">
-          <img src="<%= thumbnail_url @changeset %>" style="max-width:100%">
+          <img src="<%= photo_url @changeset %>" style="max-width:100%">
         </div>
       </div>
     </div>

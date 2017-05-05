@@ -5,26 +5,27 @@ defmodule Mixdown.Post do
 
   alias Mixdown.Category
   alias Mixdown.CoverPhoto
+  alias Mixdown.Photo
   alias Mixdown.Repo
   alias Mixdown.Tag
-  alias Mixdown.Thumbnail
 
   @required_fields ~w(title slug published_at)a
-  @optional_fields ~w(subtitle content is_published user_id category_id cover_photo
-    cover_photo_upload thumbnail thumbnail_upload)a
+  @optional_fields ~w(subtitle description content is_published user_id category_id cover_photo
+    cover_photo_upload photo photo_upload)a
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @derive {Phoenix.Param, key: :id}
 
   schema "posts" do
     field :title, :string
-    field :subtitle, :string
     field :slug, :string
+    field :subtitle, :string
+    field :description, :string
     field :content, :string
     field :cover_photo, :string
     field :cover_photo_upload, :any, virtual: true
-    field :thumbnail, :string
-    field :thumbnail_upload, :any, virtual: true
+    field :photo, :string
+    field :photo_upload, :any, virtual: true
     field :is_published, :boolean, default: false
     field :published_at, :naive_datetime
 
@@ -44,7 +45,7 @@ defmodule Mixdown.Post do
     |> cast_slug
     |> cast_published
     |> cast_cover_photo
-    |> cast_thumbnail
+    |> cast_photo
     |> validate_required(@required_fields)
     |> unique_constraint(:slug)
   end
@@ -119,24 +120,23 @@ defmodule Mixdown.Post do
     end
   end
 
-  defp cast_thumbnail(changeset) do
-    case get_change(changeset, :thumbnail_upload) do
+  defp cast_photo(changeset) do
+    case get_change(changeset, :photo_upload) do
       photo = %Plug.Upload{} ->
-        upload_thumbnail(changeset, photo)
+        upload_photo(changeset, photo)
       _ ->
         changeset
     end
   end
 
-  defp upload_thumbnail(changeset, photo) do
+  defp upload_photo(changeset, photo) do
     post = apply_changes(changeset)
-    case Thumbnail.store({photo, post}) do
+    case Photo.store({photo, post}) do
       {:ok, filename} ->
-        put_change(changeset, :thumbnail, filename)
+        put_change(changeset, :photo, filename)
       error ->
         IO.inspect error
-        add_error(changeset, :thumbnail_upload, "Error uploading thumbnail.")
+        add_error(changeset, :photo_upload, "Error uploading photo.")
     end
   end
-
 end

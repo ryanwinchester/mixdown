@@ -6,17 +6,17 @@ defmodule Mixdown.Admin.PostView do
   alias Ecto.Changeset
   alias Mixdown.Category
   alias Mixdown.CoverPhoto
+  alias Mixdown.Photo
   alias Mixdown.Post
   alias Mixdown.Repo
   alias Mixdown.Tag
-  alias Mixdown.Thumbnail
 
   def cover_photo_url(changeset) do
     CoverPhoto.url({Changeset.get_field(changeset, :cover_photo), Changeset.apply_changes(changeset)})
   end
 
-  def thumbnail_url(changeset) do
-    Thumbnail.url({Changeset.get_field(changeset, :thumbnail), Changeset.apply_changes(changeset)})
+  def photo_url(changeset) do
+    Photo.url({Changeset.get_field(changeset, :photo), Changeset.apply_changes(changeset)})
   end
 
   def all_categories() do

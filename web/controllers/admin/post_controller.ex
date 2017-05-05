@@ -5,17 +5,26 @@ defmodule Mixdown.Admin.PostController do
   alias Mixdown.Post
   alias Mixdown.Tag
 
+  @doc """
+  List all posts.
+  """
   def index(conn, _params) do
     posts = Repo.all(Post) |> Repo.preload([:user, :tags])
     render(conn, "index.html", posts: posts)
   end
 
+  @doc """
+  Sow the form for creatign a new post.
+  """
   def new(conn, _params) do
     changeset = Repo.preload(%Post{}, :tags) |> Post.changeset()
 
     render(conn, "new.html", changeset: changeset)
   end
 
+  @doc """
+  Create a new post.
+  """
   def create(conn, %{"post" => post_params}) do
     tag_ids = Map.get(post_params, "tags")
     tags = Repo.all(from t in Tag, where: t.id in ^tag_ids)
@@ -37,12 +46,18 @@ defmodule Mixdown.Admin.PostController do
     end
   end
 
+  @doc """
+  Show the form to edit a post.
+  """
   def edit(conn, %{"id" => id}) do
     post = Repo.get!(Post, id) |> Repo.preload(:tags)
     changeset = Post.changeset(post)
     render(conn, "edit.html", post: post, changeset: changeset)
   end
 
+  @doc """
+  Update a post.
+  """
   def update(conn, %{"id" => id, "post" => post_params}) do
     tag_ids = Map.get(post_params, "tags")
     tags = Repo.all(from t in Tag, where: t.id in ^tag_ids)
@@ -64,6 +79,9 @@ defmodule Mixdown.Admin.PostController do
     end
   end
 
+  @doc """
+  Delete a post.
+  """
   def delete(conn, %{"id" => id}) do
     post = Repo.get!(Post, id)
 

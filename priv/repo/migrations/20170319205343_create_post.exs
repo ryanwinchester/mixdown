@@ -4,12 +4,13 @@ defmodule Mixdown.Repo.Migrations.CreatePost do
   def change do
     create table(:posts, primary_key: false) do
       add :id, :uuid, primary_key: true
+      add :slug, :string
       add :title, :string
       add :subtitle, :string
-      add :slug, :string
+      add :description, :string, size: 200
       add :content, :text
       add :cover_photo, :string, null: true
-      add :thumbnail, :string, null: true
+      add :photo, :string, null: true
       add :is_published, :boolean, default: false, null: false
       add :published_at, :naive_datetime
 
