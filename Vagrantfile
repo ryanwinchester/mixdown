@@ -11,6 +11,10 @@ Vagrant.configure("2") do |config|
     npm install
     mix ecto.create
     mix ecto.migrate
+  SHELL
+
+  config.vm.provision :shell, run: "always", inline: <<-SHELL
+    cd /vagrant_data
     elixir --detached -S mix phoenix.server
   SHELL
 end
