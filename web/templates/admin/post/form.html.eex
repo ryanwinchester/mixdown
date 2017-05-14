@@ -44,6 +44,16 @@
     </div>
   </div>
 
+  <div class="form-group">
+    <div class="checkbox">
+      <label class="control-label">
+        <%= checkbox f, :show_author %>
+        Show Author
+      </label>
+      <%= error_tag f, :show_author %>
+    </div>
+  </div>
+
   <div class="row">
     <div class="col-md-6">
       <div class="form-group">

@@ -11,7 +11,7 @@ defmodule Mixdown.Post do
 
   @required_fields ~w(title slug published_at)a
   @optional_fields ~w(subtitle description content is_published user_id category_id cover_photo
-    cover_photo_upload photo photo_upload)a
+    cover_photo_upload photo photo_upload show_author)a
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @derive {Phoenix.Param, key: :id}
@@ -27,6 +27,7 @@ defmodule Mixdown.Post do
     field :photo, :string
     field :photo_upload, :any, virtual: true
     field :is_published, :boolean, default: false
+    field :show_author, :boolean, default: true
     field :published_at, :naive_datetime
 
     belongs_to :user, Mixdown.User

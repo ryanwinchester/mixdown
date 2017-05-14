@@ -12,6 +12,7 @@ defmodule Mixdown.Repo.Migrations.CreatePost do
       add :cover_photo, :string, null: true
       add :photo, :string, null: true
       add :is_published, :boolean, default: false, null: false
+      add :show_author, :boolean, default: true, null: false
       add :published_at, :naive_datetime
 
       add :category_id, references(:categories, on_delete: :nothing)
