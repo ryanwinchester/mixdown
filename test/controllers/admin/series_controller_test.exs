@@ -1,4 +1,4 @@
-defmodule Mixdown.SeriesControllerTest do
+defmodule Mixdown.Admin.SeriesControllerTest do
   use Mixdown.ConnCase
 
   alias Mixdown.Series

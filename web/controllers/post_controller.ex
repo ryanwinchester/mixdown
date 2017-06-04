@@ -14,6 +14,7 @@ defmodule Mixdown.PostController do
       Post
       |> Repo.get_by(slug: slug, is_published: true)
       |> Repo.preload([:user, :category, :tags])
+      |> Repo.preload(series: :posts)
 
     render(conn, "show.html", post: post)
   end

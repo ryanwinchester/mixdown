@@ -14,9 +14,12 @@ defmodule Mixdown.Repo.Migrations.CreatePost do
       add :is_published, :boolean, default: false, null: false
       add :show_author, :boolean, default: true, null: false
       add :published_at, :naive_datetime
+      add :series_priority, :integer
 
       add :category_id, references(:categories, on_delete: :nothing)
       add :user_id, references(:users, on_delete: :nothing)
+
+      add :series_id, references(:series, on_delete: :nothing)
 
       timestamps()
     end

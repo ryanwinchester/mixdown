@@ -7,9 +7,10 @@ defmodule Mixdown.PageController do
 
   def index(conn, params) do
     page =
-    Post.published(Post)
-    |> order_by(desc: :published_at)
-    |> Repo.paginate(params)
+      Post.published(Post)
+      |> order_by(desc: :published_at)
+      |> Repo.preload([:user, :category, :tags, :series])
+      |> Repo.paginate(params)
 
     render conn, "index.html", page: page
   end

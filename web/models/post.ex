@@ -58,9 +58,7 @@ defmodule Mixdown.Post do
   Limit posts to published posts.
   """
   def published(post) do
-    from p in post,
-      where: p.is_published == true,
-      preload: [:user, :category, :tags]
+    from p in post, where: p.is_published == true
   end
 
   @doc """

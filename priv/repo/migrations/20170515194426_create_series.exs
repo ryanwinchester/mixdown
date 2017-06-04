@@ -10,10 +10,5 @@ defmodule Mixdown.Repo.Migrations.CreateSeries do
       timestamps()
     end
 
-    alter table(:posts) do
-      add :series_id, references(:series, on_delete: :nothing)
-      add :series_priority, :integer
-    end
-
   end
 end
