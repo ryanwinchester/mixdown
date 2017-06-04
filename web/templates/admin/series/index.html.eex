@@ -1,0 +1,29 @@
+<h2>Listing series</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Slug</th>
+      <th>Description</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for series <- @series do %>
+    <tr>
+      <td><%= series.name %></td>
+      <td><%= series.slug %></td>
+      <td><%= series.description %></td>
+
+      <td class="text-right">
+        <%= link "Edit", to: admin_series_path(@conn, :edit, series), class: "btn btn-default btn-xs" %>
+        <%= link "Delete", to: admin_series_path(@conn, :delete, series), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<%= link "New series", to: admin_series_path(@conn, :new) %>

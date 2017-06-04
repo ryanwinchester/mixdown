@@ -17,4 +17,9 @@
       Tags
     </a>
   </li>
+  <li>
+    <a href="<%= admin_series_path(@conn, :index) %>">
+      Series
+    </a>
+  </li>
 </ul>

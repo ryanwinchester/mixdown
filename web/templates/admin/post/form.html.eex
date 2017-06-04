@@ -13,7 +13,18 @@
 
   <div class="form-group">
     <%= label f, :category_id, class: "control-label" %>
-    <%= select f, :category_id, all_categories(), class: "select-category form-control" %>
+    <%= select f, :category_id, all_categories(), prompt: "None", class: "select-category form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :series_id, class: "control-label" %>
+    <%= select f, :series_id, all_series(), prompt: "None", class: "select-series form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :series_priority, class: "control-label" %>
+    <%= text_input f, :series_priority, class: "form-control" %>
+    <%= error_tag f, :series_priority %>
   </div>
 
   <div class="form-group">

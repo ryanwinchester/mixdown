@@ -18,7 +18,7 @@
       <td><%= category.description %></td>
 
       <td class="text-right">
-        <%= link "Show", to: category_path(@conn, :show, category), class: "btn btn-default btn-xs" %>
+        <%= link "Show", to: category_path(@conn, :show, category.slug), class: "btn btn-default btn-xs" %>
       </td>
     </tr>
 <% end %>

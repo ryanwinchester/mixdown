@@ -9,6 +9,7 @@ Vagrant.configure("2") do |config|
     cd /vagrant_data
     mix deps.get
     npm install
+    node node_modules/brunch/bin/brunch build
     mix ecto.create
     mix ecto.migrate
   SHELL

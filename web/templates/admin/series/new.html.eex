@@ -1,0 +1,6 @@
+<h2>New series</h2>
+
+<%= render "form.html", changeset: @changeset,
+                        action: admin_series_path(@conn, :create) %>
+
+<%= link "Back", to: series_path(@conn, :index) %>

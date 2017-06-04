@@ -10,6 +10,7 @@ defmodule Mixdown.Admin.PostView do
   alias Mixdown.Post
   alias Mixdown.Repo
   alias Mixdown.Tag
+  alias Mixdown.Series
 
   def cover_photo_url(changeset) do
     CoverPhoto.url({Changeset.get_field(changeset, :cover_photo), Changeset.apply_changes(changeset)})
@@ -25,6 +26,10 @@ defmodule Mixdown.Admin.PostView do
 
   def all_tags() do
     Repo.all(from t in Tag, select: {t.name, t.id}, order_by: t.name)
+  end
+
+  def all_series() do
+    Repo.all(from s in Series, select: {s.name, s.id}, order_by: s.name)
   end
 
   def selected_tags(changeset) do

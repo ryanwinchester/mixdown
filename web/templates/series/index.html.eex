@@ -1,0 +1,26 @@
+<h2>Listing series</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Slug</th>
+      <th>Description</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for series <- @series do %>
+    <tr>
+      <td><%= series.name %></td>
+      <td><%= series.slug %></td>
+      <td><%= series.description %></td>
+
+      <td class="text-right">
+        <%= link "Show", to: series_path(@conn, :show, series.slug), class: "btn btn-default btn-xs" %>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>

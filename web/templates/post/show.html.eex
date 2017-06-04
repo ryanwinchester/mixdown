@@ -7,7 +7,10 @@
           <h1><%= @post.title %></h1>
           <h2 class="subheading"><%= @post.subtitle %></h2>
           <span class="meta">
-            Posted by <a href="#"><%= @post.user.name %></a>
+            Posted
+            <%= if @post.show_author do %>
+               by <a href="#"><%= @post.user.name %></a>
+            <% end %>
             <%= if @post.published_at  do %>
               on <%= full_date(@post.published_at) %>
             <% end %>

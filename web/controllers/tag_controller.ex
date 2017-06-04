@@ -18,6 +18,7 @@ defmodule Mixdown.TagController do
       Post
       |> Post.published()
       |> Post.by_tag(tag)
+      |> order_by(desc: :published_at)
       |> Repo.paginate(params)
 
     render(conn, "show.html", tag: tag, page: page)

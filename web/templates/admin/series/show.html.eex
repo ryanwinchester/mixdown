@@ -1,0 +1,27 @@
+<h2>Show series</h2>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @series.name %>
+  </li>
+
+  <li>
+    <strong>Slug:</strong>
+    <%= @series.slug %>
+  </li>
+
+  <li>
+    <strong>Description:</strong>
+    <%= @series.description %>
+  </li>
+
+  <li>
+
+  </li>
+
+</ul>
+
+<%= link "Edit", to: admin_series_path(@conn, :edit, @series) %>
+<%= link "Back", to: admin_series_path(@conn, :index) %>

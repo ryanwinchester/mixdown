@@ -8,10 +8,11 @@ defmodule Mixdown.Post do
   alias Mixdown.Photo
   alias Mixdown.Repo
   alias Mixdown.Tag
+  alias Mixdown.Series
 
   @required_fields ~w(title slug published_at)a
   @optional_fields ~w(subtitle description content is_published user_id category_id cover_photo
-    cover_photo_upload photo photo_upload show_author)a
+    cover_photo_upload photo photo_upload series_id series_priority show_author)a
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @derive {Phoenix.Param, key: :id}
@@ -29,9 +30,11 @@ defmodule Mixdown.Post do
     field :is_published, :boolean, default: false
     field :show_author, :boolean, default: true
     field :published_at, :naive_datetime
+    field :series_priority, :integer
 
     belongs_to :user, Mixdown.User
     belongs_to :category, Mixdown.Category
+    belongs_to :series, Mixdown.Series
     many_to_many :tags, Mixdown.Tag, join_through: "posts_tags", on_replace: :delete
 
     timestamps()
@@ -57,7 +60,6 @@ defmodule Mixdown.Post do
   def published(post) do
     from p in post,
       where: p.is_published == true,
-      order_by: [desc: :published_at],
       preload: [:user, :category, :tags]
   end
 
@@ -77,6 +79,14 @@ defmodule Mixdown.Post do
   def by_category(post, %{id: category_id}) do
     from p in post,
       where: p.category_id == ^category_id
+  end
+
+  @doc """
+  Limit posts to a certain series.
+  """
+  def by_series(post, %{id: series_id}) do
+    from p in post,
+      where: p.series_id == ^series_id
   end
 
   # Add slug from title, if no slug exists.

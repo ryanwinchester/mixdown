@@ -18,6 +18,7 @@ defmodule Mixdown.CategoryController do
       Post
       |> Post.published()
       |> Post.by_category(category)
+      |> order_by(desc: :published_at)
       |> Repo.paginate(params)
 
     render(conn, "show.html", category: category, page: page)

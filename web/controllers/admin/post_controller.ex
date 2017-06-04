@@ -14,7 +14,7 @@ defmodule Mixdown.Admin.PostController do
   end
 
   @doc """
-  Sow the form for creatign a new post.
+  Show the form for creating a new post.
   """
   def new(conn, _params) do
     changeset = Repo.preload(%Post{}, :tags) |> Post.changeset()
